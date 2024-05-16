@@ -22,8 +22,8 @@ public class Student implements Serializable {
     @Embedded
     protected Address address;
 
-    @OneToMany(fetch = FetchType.EAGER)
-    protected Set<CourseStudent> courses = new HashSet<>();
+    @OneToMany(mappedBy = "student",fetch = FetchType.EAGER)
+    protected Set<CourseStudent> studentCourses = new HashSet<>();
     public Student() {
     }
 
@@ -52,12 +52,12 @@ public class Student implements Serializable {
         this.address = address;
     }
 
-    public Set<CourseStudent> getCourses() {
-        return courses;
+    public Set<CourseStudent> getStudentCourses() {
+        return studentCourses;
     }
 
-    public void setCourses(Set<CourseStudent> courses) {
-        this.courses = courses;
+    public void setStudentCourses(Set<CourseStudent> studentCourses) {
+        this.studentCourses = studentCourses;
     }
 
     @Override

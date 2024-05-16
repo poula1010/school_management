@@ -11,10 +11,10 @@ import java.io.Serializable;
 public class CourseStudent {
     @Embeddable
     public static class CourseStudentId implements Serializable{
-        @Column(name = "course_id")
+        @Column(name = "course_id" ,insertable = false,updatable = false)
         protected Long courseId;
 
-        @Column(name = "student_id")
+        @Column(name = "student_id",insertable = false,updatable = false)
         protected Long studentId;
 
         public CourseStudentId(){}
@@ -61,7 +61,7 @@ public class CourseStudent {
         this.id.courseId = course.getId();
         this.id.studentId = student.getId();
 
-        student.getCourses().add(this);
-        course.getStudents().add(this);
+        student.getStudentCourses().add(this);
+        course.getStudentCourses().add(this);
     }
 }

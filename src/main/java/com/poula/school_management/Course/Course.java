@@ -21,8 +21,8 @@ public class Course {
     @Column(nullable = false,length = 1023)
     protected String description;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    protected Set<CourseStudent> students = new HashSet<>();
+    @OneToMany(mappedBy = "course",fetch = FetchType.LAZY)
+    protected Set<CourseStudent> studentCourses = new HashSet<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
     protected Teacher teacher;
@@ -54,12 +54,11 @@ public class Course {
         this.teacher = teacher;
     }
 
-    public Set<CourseStudent> getStudents() {
-        return students;
+    public Set<CourseStudent> getStudentCourses() {
+        return studentCourses;
     }
 
-    public void setStudents(Set<CourseStudent> students) {
-        this.students = students;
+    public void setStudentCourses(Set<CourseStudent> studentCourses) {
+        this.studentCourses = studentCourses;
     }
-
 }
