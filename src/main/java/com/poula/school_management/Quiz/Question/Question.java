@@ -77,6 +77,14 @@ public class Question {
         this.answer = answer;
     }
 
+    public Quiz getQuiz() {
+        return quiz;
+    }
+
+    public void setQuiz(Quiz quiz) {
+        this.quiz = quiz;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
