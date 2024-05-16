@@ -1,10 +1,14 @@
 package com.poula.school_management.Student;
 
+import com.poula.school_management.Course.Course;
+import com.poula.school_management.Course_Student.CourseStudent;
 import com.poula.school_management.Shared.Address;
 import com.poula.school_management.Shared.PersonalDetails;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Student implements Serializable {
@@ -18,6 +22,8 @@ public class Student implements Serializable {
     @Embedded
     protected Address address;
 
+    @OneToMany(fetch = FetchType.EAGER)
+    protected Set<CourseStudent> courses = new HashSet<>();
     public Student() {
     }
 
@@ -46,6 +52,13 @@ public class Student implements Serializable {
         this.address = address;
     }
 
+    public Set<CourseStudent> getCourses() {
+        return courses;
+    }
+
+    public void setCourses(Set<CourseStudent> courses) {
+        this.courses = courses;
+    }
 
     @Override
     public boolean equals(Object o) {
