@@ -76,4 +76,18 @@ public class Student implements Serializable {
     public int hashCode() {
         return getPersonalDetails().hashCode();
     }
+    public static Student createNewStudent(StudentDto studentDto){
+        Student student = new Student();
+        student.setAddress(studentDto.getAddress());
+        student.setPersonalDetails(studentDto.getPersonalDetails());
+        return student;
+    }
+
+    public StudentDto toStudentDto(){
+        StudentDto studentDto = new StudentDto();
+        studentDto.setId(this.getId());
+        studentDto.setAddress(this.getAddress());
+        studentDto.setPersonalDetails(this.getPersonalDetails());
+        return studentDto;
+    }
 }

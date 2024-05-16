@@ -15,6 +15,7 @@ public class PersonalDetails {
     @Column(nullable = false)
     protected String lastname;
 
+    @NotNull
     @Column(name="SSN",nullable = false,length = 64)
     protected String ssn;
     public PersonalDetails() {
