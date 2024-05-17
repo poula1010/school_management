@@ -16,7 +16,7 @@ public class PersonalDetails {
     protected String lastname;
 
     @NotNull
-    @Column(name="SSN",nullable = false,length = 64)
+    @Column(name="SSN",nullable = false,unique = true,length = 64)
     protected String ssn;
     public PersonalDetails() {
     }
