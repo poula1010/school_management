@@ -3,6 +3,7 @@ package com.poula.school_management.Course;
 import com.poula.school_management.Course_Student.CourseStudent;
 import com.poula.school_management.Course_Teacher.CourseTeacher;
 import com.poula.school_management.Employee.Teacher.Teacher;
+import com.poula.school_management.Quiz.Quiz;
 import com.poula.school_management.Student.Student;
 import jakarta.persistence.*;
 import org.hibernate.annotations.OnDelete;
@@ -31,8 +32,10 @@ public class Course {
     @OneToMany(mappedBy = "course" , fetch = FetchType.LAZY)
     @OnDelete(action = OnDeleteAction.CASCADE)
     protected Set<CourseTeacher> teacherCourses = new HashSet<>();
-    @ManyToOne(fetch = FetchType.LAZY)
-    protected Teacher teacher;
+
+    @OneToMany(mappedBy = "course",fetch = FetchType.LAZY)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    protected Set<Quiz> quizzes = new HashSet<>();
     public Long getId() {
         return id;
     }
@@ -53,13 +56,6 @@ public class Course {
         this.description = description;
     }
 
-    public Teacher getTeacher() {
-        return teacher;
-    }
-
-    public void setTeacher(Teacher teacher) {
-        this.teacher = teacher;
-    }
 
     public Set<CourseStudent> getStudentCourses() {
         return studentCourses;
@@ -67,5 +63,35 @@ public class Course {
 
     public void setStudentCourses(Set<CourseStudent> studentCourses) {
         this.studentCourses = studentCourses;
+    }
+
+    public Set<CourseTeacher> getTeacherCourses() {
+        return teacherCourses;
+    }
+
+    public void setTeacherCourses(Set<CourseTeacher> teacherCourses) {
+        this.teacherCourses = teacherCourses;
+    }
+
+    public Set<Quiz> getQuizzes() {
+        return quizzes;
+    }
+
+    public void setQuizzes(Set<Quiz> quizzes) {
+        this.quizzes = quizzes;
+    }
+
+    public static Course createNewCourse(CourseDto courseDto){
+        Course course = new Course();
+        course.setDescription(course.getDescription());
+        course.setTitle(courseDto.getTitle());
+        return course;
+    }
+    public CourseDto toCourseDto(){
+        CourseDto courseDto = new CourseDto();
+        courseDto.setDescription(this.getDescription());
+        courseDto.setTitle(this.getTitle());
+        courseDto.setId(this.getId());
+        return courseDto;
     }
 }

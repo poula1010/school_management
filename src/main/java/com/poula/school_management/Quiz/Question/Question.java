@@ -1,9 +1,13 @@
 package com.poula.school_management.Quiz.Question;
 
+import com.poula.school_management.Quiz.Answer.Answer;
 import com.poula.school_management.Quiz.Quiz;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -29,6 +33,10 @@ public class Question {
     @ManyToOne
     @JoinColumn(name = "quiz_id")
     protected Quiz quiz;
+
+    @OneToMany(mappedBy = "question",fetch = FetchType.LAZY)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    protected Set<Answer> answers = new HashSet<>();
 
     public Question() {
     }
@@ -83,6 +91,14 @@ public class Question {
 
     public void setQuiz(Quiz quiz) {
         this.quiz = quiz;
+    }
+
+    public Set<Answer> getAnswers() {
+        return answers;
+    }
+
+    public void setAnswers(Set<Answer> answers) {
+        this.answers = answers;
     }
 
     @Override

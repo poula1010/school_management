@@ -2,6 +2,7 @@ package com.poula.school_management.Student;
 
 import com.poula.school_management.Course.Course;
 import com.poula.school_management.Course_Student.CourseStudent;
+import com.poula.school_management.Quiz.Quiz_Detail.QuizDetail;
 import com.poula.school_management.Shared.Address;
 import com.poula.school_management.Shared.PersonalDetails;
 import jakarta.persistence.*;
@@ -27,6 +28,10 @@ public class Student implements Serializable {
     @OneToMany(mappedBy = "student",fetch = FetchType.LAZY)
     @OnDelete(action = OnDeleteAction.CASCADE)
     protected Set<CourseStudent> studentCourses = new HashSet<>();
+
+    @OneToMany(mappedBy = "student",fetch = FetchType.LAZY)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    protected Set<QuizDetail> quizDetails;
     public Student() {
     }
 
