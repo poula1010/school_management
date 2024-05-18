@@ -32,17 +32,15 @@ public class StudentController {
         return this.studentService.addStudent(studentDto);
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> removeStudentById(@PathVariable("id") Long id){
+        return this.studentService.removeStudentById(id);
+    }
 
-
-
-
-
-
-
-
-
-
-
+    @PutMapping
+    public ResponseEntity<String> updateStudent(@Valid @RequestBody StudentDto studentDto){
+        return this.studentService.updateStudent(studentDto);
+    }
 
 
 }

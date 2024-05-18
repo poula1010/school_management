@@ -5,6 +5,8 @@ import com.poula.school_management.Course_Student.CourseStudent;
 import com.poula.school_management.Shared.Address;
 import com.poula.school_management.Shared.PersonalDetails;
 import jakarta.persistence.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import java.io.Serializable;
 import java.util.HashSet;
@@ -22,7 +24,8 @@ public class Student implements Serializable {
     @Embedded
     protected Address address;
 
-    @OneToMany(mappedBy = "student",fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "student",fetch = FetchType.LAZY)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     protected Set<CourseStudent> studentCourses = new HashSet<>();
     public Student() {
     }

@@ -12,4 +12,5 @@ public interface StudentService {
     ResponseEntity<PagingDto<StudentDto>> getAllStudents(int pageNumber, int size);
     ResponseEntity<StudentDto> getStudentById(Long id);
     ResponseEntity<String> removeStudentById(Long id);
+
 }

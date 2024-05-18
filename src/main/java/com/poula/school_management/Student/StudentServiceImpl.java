@@ -62,7 +62,7 @@ public class StudentServiceImpl implements StudentService{
     @Transactional
     public ResponseEntity<String> removeStudentById(Long id) {
         quizDetailRepository.deleteByStudentId(id);
-        studentRepository.deleteById(id);
+        studentRepository.deleteStudentById(id);
         return new ResponseEntity<>("deleted student successfully",HttpStatus.OK);
     }
 }

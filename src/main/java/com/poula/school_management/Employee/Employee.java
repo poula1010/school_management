@@ -1,5 +1,6 @@
 package com.poula.school_management.Employee;
 
+import com.poula.school_management.Shared.Address;
 import com.poula.school_management.Shared.MonetaryAmount.MonetaryAmount;
 import com.poula.school_management.Shared.PersonalDetails;
 import jakarta.persistence.*;
@@ -16,10 +17,13 @@ public abstract class Employee {
     protected PersonalDetails personalDetails;
 
     @Embedded
+    protected Address address;
+    @Embedded
     protected MonetaryAmount salary;
     public Employee(){}
-    public Employee(PersonalDetails personalDetails, MonetaryAmount salary) {
+    public Employee(PersonalDetails personalDetails,Address address, MonetaryAmount salary) {
         this.personalDetails = personalDetails;
+        this.address = address;
         this.salary = salary;
     }
 
@@ -41,5 +45,13 @@ public abstract class Employee {
 
     public void setSalary(MonetaryAmount salary) {
         this.salary = salary;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
     }
 }
