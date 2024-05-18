@@ -23,7 +23,9 @@ public class Question {
     @Column(nullable = false)
     protected int marks;
     @ElementCollection(targetClass = String.class,fetch = FetchType.EAGER)
-    @CollectionTable(name="question_options")
+    @CollectionTable(name="question_options",foreignKey = @ForeignKey(
+            name = "fk_question_option",
+            foreignKeyDefinition = "foreign key (question_id) references Question (id) on delete cascade"))
     protected Set<String> options;
 
     @NotNull
@@ -91,6 +93,7 @@ public class Question {
 
     public void setQuiz(Quiz quiz) {
         this.quiz = quiz;
+        quiz.getQuestions().add(this);
     }
 
     public Set<Answer> getAnswers() {
@@ -117,5 +120,16 @@ public class Question {
         int result = getQuestionTitle().hashCode();
         result = 31 * result + getAnswer().hashCode();
         return result;
+    }
+
+    public static Question createQuestion(QuestionDto questionDto,Quiz quiz){
+        Question question = new Question();
+        question.setQuestionTitle(questionDto.getTitle());
+        question.setAnswer(questionDto.getAnswer());
+        question.setOptions(new HashSet<>(questionDto.getOptions()));
+        question.setMarks(questionDto.getMarks());
+        question.setQuiz(quiz);
+
+        return question;
     }
 }
