@@ -1,5 +1,7 @@
 package com.poula.school_management.Student;
 
+import com.poula.school_management.Course.Course;
+import com.poula.school_management.Course.CourseDto;
 import com.poula.school_management.Quiz.Quiz_Detail.QuizDetailRepository;
 import com.poula.school_management.Shared.PagingDto;
 import jakarta.transaction.Transactional;
@@ -13,6 +15,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+
 @Service
 public class StudentServiceImpl implements StudentService{
 
@@ -54,7 +58,13 @@ public class StudentServiceImpl implements StudentService{
     @Override
     public ResponseEntity<StudentDto> getStudentById(Long id) {
         Student student = studentRepository.findById(id).orElseThrow();
+        Set<Course> courseSet = studentRepository.getStudentCourses(student);
+        List<CourseDto> courses = new ArrayList<>();
+        for(Course course :courseSet){
+            courses.add(course.toCourseDto());
+        }
         StudentDto studentDto = student.toStudentDto();
+        studentDto.setCourses(courses);
         return new ResponseEntity<>(studentDto,HttpStatus.OK);
     }
 
@@ -65,4 +75,6 @@ public class StudentServiceImpl implements StudentService{
         studentRepository.deleteStudentById(id);
         return new ResponseEntity<>("deleted student successfully",HttpStatus.OK);
     }
+
+
 }

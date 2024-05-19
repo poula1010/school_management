@@ -1,10 +1,13 @@
 package com.poula.school_management.Student;
 
+import com.poula.school_management.Course.CourseDto;
 import com.poula.school_management.Shared.PagingDto;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/student")
@@ -41,6 +44,4 @@ public class StudentController {
     public ResponseEntity<String> updateStudent(@Valid @RequestBody StudentDto studentDto){
         return this.studentService.updateStudent(studentDto);
     }
-
-
 }

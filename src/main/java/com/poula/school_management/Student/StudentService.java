@@ -1,5 +1,7 @@
 package com.poula.school_management.Student;
 
+import com.poula.school_management.Course.Course;
+import com.poula.school_management.Course.CourseDto;
 import com.poula.school_management.Shared.PagingDto;
 import org.springframework.http.ResponseEntity;
 
@@ -12,5 +14,4 @@ public interface StudentService {
     ResponseEntity<PagingDto<StudentDto>> getAllStudents(int pageNumber, int size);
     ResponseEntity<StudentDto> getStudentById(Long id);
     ResponseEntity<String> removeStudentById(Long id);
-
 }

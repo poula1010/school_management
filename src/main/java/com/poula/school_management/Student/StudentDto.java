@@ -1,8 +1,11 @@
 package com.poula.school_management.Student;
 
+import com.poula.school_management.Course.CourseDto;
 import com.poula.school_management.Shared.Address;
 import com.poula.school_management.Shared.PagingDto;
 import com.poula.school_management.Shared.PersonalDetails;
+
+import java.util.List;
 
 public class StudentDto {
 
@@ -12,6 +15,7 @@ public class StudentDto {
 
     protected Address address;
 
+    protected List<CourseDto> courses;
     public StudentDto() {
     }
 
@@ -45,4 +49,11 @@ public class StudentDto {
         this.address = address;
     }
 
+    public List<CourseDto> getCourses() {
+        return courses;
+    }
+
+    public void setCourses(List<CourseDto> courses) {
+        this.courses = courses;
+    }
 }
