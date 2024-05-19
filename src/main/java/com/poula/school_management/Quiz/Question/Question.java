@@ -32,7 +32,7 @@ public class Question {
     @Column(nullable = false)
     protected String answer;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "quiz_id")
     protected Quiz quiz;
 
@@ -93,7 +93,6 @@ public class Question {
 
     public void setQuiz(Quiz quiz) {
         this.quiz = quiz;
-        quiz.getQuestions().add(this);
     }
 
     public Set<Answer> getAnswers() {
