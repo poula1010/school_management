@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin("*")
 @RequestMapping("/api/student")
 public class StudentController {
 
@@ -26,8 +27,9 @@ public class StudentController {
 
     @GetMapping("")
     public ResponseEntity<PagingDto<StudentDto>> getAllStudents(@RequestParam(name = "page",defaultValue ="0") int pageNumber,
-                                                                @RequestParam(name = "size",defaultValue = "10") int size){
-        return this.studentService.getAllStudents(pageNumber,size);
+                                                                @RequestParam(name = "size",defaultValue = "10") int size,
+                                                                @RequestParam(name="sort",defaultValue = "none") String sort){
+        return this.studentService.getAllStudents(pageNumber,size,sort);
     }
 
     @PostMapping

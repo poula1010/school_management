@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -43,9 +44,17 @@ public class StudentServiceImpl implements StudentService{
     }
 
     @Override
-    public ResponseEntity<PagingDto<StudentDto>> getAllStudents(int pageNumber, int size) {
-        Pageable pageable = PageRequest.of(pageNumber,size);
-        Page<Student> page = studentRepository.findAll(pageable);
+    public ResponseEntity<PagingDto<StudentDto>> getAllStudents(int pageNumber, int size,String sort) {
+        Pageable pageable = switch (sort) {
+            case "firstnameAsc" -> PageRequest.of(pageNumber, size, Sort.by(Sort.Direction.ASC, "personalDetails.firstname"));
+            case "firstnameDesc" -> PageRequest.of(pageNumber, size, Sort.by(Sort.Direction.DESC, "personalDetails.firstname"));
+            case "lastnameAsc" -> PageRequest.of(pageNumber, size, Sort.by(Sort.Direction.ASC, "personalDetails.lastname"));
+            case "lastnameDesc" -> PageRequest.of(pageNumber, size, Sort.by(Sort.Direction.DESC, "personalDetails.lastname"));
+
+            default -> PageRequest.of(pageNumber, size);
+        };
+
+        Page<Student> page=studentRepository.findAll(pageable);
         List<StudentDto> studentDtos = page.get().map(Student::toStudentDto).toList();
         PagingDto<StudentDto> pagingDto = new PagingDto<>();
         pagingDto.setTotalNumber(page.getTotalElements());
